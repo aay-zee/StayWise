@@ -31,6 +31,7 @@ module.exports.showListing = async (req, res) => {
 };
 
 module.exports.createListing = async (req, res, next) => {
+  //geocoding here
   let { url } = req.file;
   let { filename } = req.file;
   let listing = new Listing(req.body.listing);
@@ -48,13 +49,24 @@ module.exports.editListing = async (req, res) => {
     req.flash("error", "Listing does not exist!");
     return res.redirect("/listings");
   }
-  res.render("listings/edit.ejs", { listing });
+  let originalImageURL = listing.image.url;
+  originalImageURL = originalImageURL.replace(
+    "/upload",
+    "/upload/h_100,w_100,e_blur:500"
+  );
+  res.render("listings/edit.ejs", { listing, originalImageURL });
 };
 
 module.exports.updateListing = async (req, res) => {
   let listing = await Listing.findByIdAndUpdate(req.params.id, {
     ...req.body.listing,
   });
+  if (typeof req.file !== "undefined") {
+    let { url } = req.file;
+    let { filename } = req.file;
+    listing.image = { url, filename };
+    await listing.save();
+  }
   console.log(listing);
   req.flash("success", "Listing Updated!");
   res.redirect(`/listings/${listing._id}`);

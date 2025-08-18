@@ -1,4 +1,8 @@
 <% layout("/layouts/boilerplate.ejs") %>
+<!-- <script>
+  const mapToken = "<%=process.env.MAPBOX_TOKEN%>";
+  then do the following in /public/js/map.js: const mapToken=mapToken;
+</script> -->
 <body>
   <div class="row mt-3">
     <div class="col-8 offset-3">
@@ -111,7 +115,7 @@
       <button class="btn btn-outline-dark">Submit</button>
     </form>
     <hr />
-    <% } %>
+    <% } %> <% if(listing.reviews.length>0){%>
     <p><b>All Reviews</b></p>
     <div class="row">
       <% for(review of listing.reviews){%>
@@ -136,5 +140,13 @@
       </div>
       <%}%>
     </div>
+    <%}%>
+  </div>
+  <div class="col-8 offset-3 mb-3">
+    <h3>Where You'll Be</h3>
+    <div id="map"></div>
   </div>
 </body>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="/public/js/map.js"></script>

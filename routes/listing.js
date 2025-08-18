@@ -14,8 +14,8 @@ router
   //Create Route
   .post(
     isLoggedIn,
-    validateListing,
     upload.single("listing[image]"),
+    validateListing,
     wrapAsync(listingController.createListing)
   );
 // .post(upload.single("listing[image]"), (req, res) => {  //just for my understanding
@@ -33,6 +33,7 @@ router
   .put(
     isLoggedIn,
     isOwner,
+    upload.single("listing[image]"),
     validateListing,
     wrapAsync(listingController.updateListing)
   )
