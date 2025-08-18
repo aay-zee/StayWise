@@ -14,6 +14,11 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+}
+console.log(process.env.SECRET);
+
 app.engine("ejs", ejsMate);
 
 app.use(express.urlencoded({ extended: true }));

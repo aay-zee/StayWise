@@ -11,13 +11,15 @@ const listingSchema = Schema({
     type: String,
   },
   image: {
-    type: String,
-    default:
-      "https://images.unsplash.com/photo-1672490410415-30c8c6c0c68c?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    set: (v) =>
-      v === ""
-        ? "https://images.unsplash.com/photo-1672490410415-30c8c6c0c68c?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        : v,
+    // type: String,
+    // default:
+    //   "https://images.unsplash.com/photo-1672490410415-30c8c6c0c68c?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    // set: (v) =>
+    //   v === ""
+    //     ? "https://images.unsplash.com/photo-1672490410415-30c8c6c0c68c?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    //     : v,
+    url: String,
+    fileName: String,
   },
   price: {
     type: Number,
