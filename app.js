@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+}
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
@@ -14,11 +17,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
-if (process.env.NODE_ENV != "production") {
-  require("dotenv").config();
-}
-console.log(process.env.SECRET);
-
 app.engine("ejs", ejsMate);
 
 app.use(express.urlencoded({ extended: true }));
@@ -27,7 +25,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride("_method"));
 
 const PORT = 5000;
-const MONGO_URL = "mongodb://localhost:27017/staywise";
+// const MONGO_URL = "mongodb://localhost:27017/staywise";
+const dbURL = process.env.ATLASDB_URL;
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -40,7 +39,7 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbURL);
 }
 
 const sessionOptions = {
@@ -55,9 +54,9 @@ const sessionOptions = {
 };
 
 //Root
-app.get("/", (req, res) => {
-  res.send("Hello World! Root Here");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello World! Root Here");
+// });
 
 app.use(session(sessionOptions));
 app.use(flash());
